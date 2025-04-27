@@ -5,6 +5,7 @@
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
 import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import "./portfolio-screen.js";
 
 
 export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
@@ -134,37 +135,93 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
 
   // Lit render the HTML
   render() {
+    const screens = [
+      {
+        id: "screen-1",
+        label: "Home",
+        color: "var(--ddd-theme-default-blueberry, #4fc3f7)",
+        content: html`
+        <h2>Welcome</h2>
+        <p>This is your portfolio homepage. Scroll or use the sidebar to explore.</p>
+      `,
+      },
+      {
+        id: "screen-2",
+        label: "About",
+        color: "var(--ddd-theme-default-mint, #00bfae)",
+        content: html`
+        <h2>About Me</h2>
+        <p>Learn more about me and my work.</p>
+      `,
+      },
+      {
+        id: "screen-3",
+        label: "Projects",
+        color: "var(--ddd-theme-default-coral, #ff7043)",
+        content: html`
+        <h2>My Projects</h2>
+        <p>Explore my projects and contributions.</p>
+      `,
+      },
+      {
+        id: "screen-4",
+        label: "Contact",
+        color: "var(--ddd-theme-default-slate, #2c4067)",
+        content: html`
+        <h2>Contact Me</h2>
+        <p>
+          <a href="mailto:ams11649@psu.edu">ams111649@psu.edu</a>
+        </p>
+        <iframe src="https://docs.google/form/d/e/1FAIpQLSfj2v4g3x5k5f5f5f5f5f5f5f5f5f5f5f5f5f5f5/viewform?embedded=true" width="100%" height="400px" style="border:none;"></iframe>
+      `,
+      },
+      {
+        id: "screen-5",
+        label: "Blog",
+        color: "var(--ddd-theme-default-sunflower, #ffd600)",
+        content: html`
+        <h2>My Blog</h2>
+        <p>Read my latest blog posts and articles.</p>
+      `,
+      },
+    ];
+
     return html`
       <div class="layout">
-        <aside class="sidebar">
+        <div class="sidebar">
           <nav>
-            <a href="#">HOME</a>
-            <a href="#">ABOUT</a>
-            <a href="#">PROJECTS</a>
-            <a href="#">CONTACT</a>
-            <a href="#">RESEARCH</a>
+            ${screens.map(
+              (screen) => html`
+                <a 
+                href="#${screen.id}" 
+                @click="${(object) => this.onNavClick(object, screen.id)}"
+                >${screen.label}
+              </a>
+              `
+            )}
           </nav>
-        </aside>
-        <main class="main-content">
-          <div class="logo-block">
-            <svg width="100" height="100" viewBox="0 0 100 100">
-              <polygon points="50, 10, 90, 30, 50, 50, 10, 30" fill="2c4067"/>
-              <polygon points="50, 10, 90, 30, 50, 50, 10, 30" fill="4fc3f7"/>
-            </svg>
-
-            <div class="subtitle">Professional</div>
-            <h1 class="portfolio-title">Portfolio</h1>
           </div>
-          <div class="wave-block">
-            <svg viewBox="0 0 1440 90" preserveAspectRatio="none">
-              <path fill="#2196f3" d="M0, 32 C360, 80 1080, 0 1440, 48 L1440, 90 L0, 90 Z"></path>
-            </svg>
-            <span class="wave-label">About</span>
-          </div>
+          <main class="main-content" style="overflow-y: auto; scroll-snap-type: y mandatory;">
+            <div id="screens">
+              ${screens.map(
+                (screen) => html`
+                  <portfolio-screen
+                    screend="${screen.id}"
+                    color="${screen.color}"
+                    label="${screen.label}"
+                  >
+                    ${screen.content}
+                  </portfolio-screen>
+                `
+              )}
+            </div>
+            <scroll-button 
+              style="position:fixed; bottom:32px; right:32px; z-index:1000;">
+            </scroll-button>
           </main>
-      </div>
-    `;
-  }
+        </div>
+        `;
+    }
 
   /**
    * haxProperties integration via file reference
