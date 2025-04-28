@@ -133,6 +133,51 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
     `];
   }
 
+  update() {
+    this.scrollToHash(location.hash);
+    window.addEventListener("hashchange", () => {
+      this.scrollToHash(location.hash);
+    }
+    );
+    this.onScroll = () => {
+      const screens =
+      Array.from(this.renderRoot.querySelectorAll("portfolio-screen"));
+      const scrollY = window.scrollY || document.documentElement.scrollTop;
+      let activeId = screens[0].id;
+      for (const screen of screens) {
+        const rect = screen.getBoundingClientRect();
+        if (rect.top <= 100 && rect.bottom > 100) {
+          activeId = screen.id;
+          break;
+        }
+      }
+      if (location.hash !== `#${activeId}`) {
+        history.replaceState(null, "", `#${activeId}`);
+      }
+    };
+    window.addEventListener("scroll", this.onScroll);
+  }
+
+  onNavClick(e, id) {
+    e.preventDefault();
+    const object = this.renderRoot.querySelector(`#${id}`);
+    if (object) {
+      object.scrollIntoView({ behavior: "smooth" });
+      history.pushState(null, "", `#${id}`);
+    }
+  }
+
+  scrollToHash(hash) {
+    if (hash) {
+      const id = hash.replace("#", "");
+      const object = this.renderRoot.querySelector(`#${id}`);
+      if (object) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }
+
+
   // Lit render the HTML
   render() {
     const screens = [
@@ -206,7 +251,7 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
               ${screens.map(
                 (screen) => html`
                   <portfolio-screen
-                    screend="${screen.id}"
+                    screen="${screen.id}"
                     color="${screen.color}"
                     label="${screen.label}"
                   >
