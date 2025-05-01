@@ -9,25 +9,41 @@
 
   <style>
     :root, html, body {
-      margin: 0;
-      padding: 0;
-      height: 100%;
-      background: #fff;
+      margin: var(--ddd-spacing-0);
+      padding: var(--ddd-spacing-0);
+  
     }
-    body {
-      font-family: 'Roboto', Arial, sans-serif;
-      color: #2c4067;
-      min-height: 100vh;
+    p {
+      padding-top: 10px;
+      padding-left: 30px;
     }
   </style>
-  <title>portfolio-sidebar-theme</title>
 </head>
 
+<script type="module" src="portfolio-sidebar-theme.js"></script>
+<script type="module" src="portfolio-page.js"></script>
+
 <body>
-    <portfolio-sidebar-theme></portfolio-sidebar-theme>
-    <script type="module" src="./portfolio-sidebar-theme.js"></script>
-    <script type="module" src="./portfolio-screen.js"></script>
-    <script type="module"
-    src="https://cdn.hax.cloud/cdn/build/es6/node_modules/@haxtheweb/scroll-button/scroll-button.js"></script>
+  <portfolio-sidebar-theme>
+    <portfolio-page title="About me" pagenumber="1" data-primary="12">
+      <div>
+        <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/356246215_101061826381080_8889062596903806468_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=a4zZ_k_hTcMQ7kNvwG0K7n5&_nc_oc=AdmmlwSUL7ygDE9KsAcwSsG8R6Kw8Z7arqAz4NRWoEhGdHQJCuDwqHVq1AwSSEq25ms&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=Py7fZJlqnNN50AzxfMvjiw&oh=00_AfEiiVwPgxX4ftxnANbaPzo8GCnJARgYbuNaSZDVDs9tCA&oe=681826E2" alt="" style="margin: 20px; width: 250px; height: 250px; object-fit: cover; float:left;">
+      <p>My name is lucky</p>
+      <p>esa</p>
+      </div>
+    </portfolio-page>
+    <portfolio-page title="Research" pagenumber="2" data-primary="10">
+      <p>My name is Lucky</p>
+    </portfolio-page>
+    <portfolio-page title="Content" pagenumber="3" data-primary="8">
+      <p>My name is Lucky</p>
+    </portfolio-page>
+    <portfolio-page title="Questions" pagenumber="4" data-primary="6">
+      <p>My name is Lucky</p>
+    </portfolio-page>
+    <portfolio-page title="Contact" pagenumber="5" data-primary="4">
+      <p>My name is Lucky</p>
+    </portfolio-page>
+  </portfolio-sidebar-theme>
 </body>
 </html>

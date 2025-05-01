@@ -4,17 +4,20 @@
  */
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import "./portfolio-screen.js";
+// import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
+import "./portfolio-sidebar.js";
 
 
-export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
+export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
 
   static get tag() {
     return "portfolio-sidebar-theme";
   }
 
   constructor() {
+    super();
+    this.pages = [];
+    this.observer = new MutationObserver(this.handleMutations.bind(this));
     
     this.registerLocalization({
       context: this,
@@ -25,10 +28,35 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
     });
   }
 
+  firstUpdated() {
+    this.pages = Array.from(this.querySelectorAll("portfolio-page"));
+    this.setupScrollBehavior();
+    this.observer.observe(this, {
+      childList: true,
+      subtree: true,
+    });
+  }
+
+  handleMutations(mutations) { 
+    this.pages = Array.from(this.querySelectorAll("portfolio-page"));
+    this.setupScrollBehavior();
+    this.requestUpdate();
+  }
+
+  setupScrollBehavior() {
+    this.pages.forEach((page, index) => {
+      page.id = `screen-${index+1}`;
+      page.style.height = "100vh";
+      page.style.scrollSnapAlign = "start";
+      });
+    }
+
+
   // Lit reactive properties
   static get properties() {
     return {
       ...super.properties,
+      pages: { type: Array },
     };
   }
 
@@ -38,243 +66,80 @@ export class PortfolioSidebarTheme extends DDDSuper(I18NMixin(LitElement)) {
     css`
       :host {
         display: block;
+        height: 100vh;
+        background-color: var(--ddd-theme-accent);
+        font-family: var(--ddd-font-navigation);
+        overflow-y:scroll;
+        scroll-snap-type: y mandatory;
+
+      }
+      portfolio-sidebar {
+        width: 240px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        z-index: 1000;
+      }
+      .wrapper {
+        margin-left: 240px;
         min-height: 100vh;
-        width: 100vw;
-        box-sizing: border-box;
       }
-      .layout {
-        display: flex;
-        min-height: 100vh;
-        width: 100vw;
-      }
-      .sidebar {
-        width: 260px;
-        background: #2c4067;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        padding-top: 80px;
-        min-height: 100vh;
-      }
-      .sidebar nav {
-        display: flex;
-        flex-direction: column;
-        gap: 48px;
-        margin-top: 40px;
-        width: 100%;
-        align-items: center;
-      }
-      .sidebar nav a {
-        color: #fff;
-        text-decoration: none;
-        font-size: 1.1em;
-        letter-spacing: 2px;
-        font-family: 'Roboto', Arial, sans-serif;
-        transition: color 0.2s;
-      }
-      .sidebar nav a:hover {
-        color: #4fc3f7;
-      }
-      .main-content {
-        flex: 1;
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        position: relative;
-      }
-      .logo-block {
-        text-align: center;
-        margin: 60px 0 20px 0;
-      }
-      .logo-block svg {
-        margin-bottom: 10px;
-      }
-      .subtitle {
-        font-size: 1.1em;
-        margin-bottom: 10 px;
-        color: #2c4067;
-        font-family: 'Roboto', Arial, sans-serif;
-        font-weight: 500;
-      }
-      .portfolio-title {
-        font-family: "Montserrat", Arial, sans-serif;
-        font-size: 3em;
-        color: #2c4067;
-        letter-spacing: 0.1em;
-        font-weight: 700;
-        margin: 0;
-        text-shadow: 2px 2px 0 #fff, 4px 4px 0 #2c4067;
-      }
-      .wave-block {
-        width: 100%;
-        position: relative;
-        margin-bottom: 0;
-      }
-      .wave-block svg {
-        display: block;
-        width: 100%;
-        height: 90px;
-      }
-      .wave-label {
-        position: absolute;
-        left: 50%;
-        top: 40%;
-        transform: translate(-50%, -50%);
-        color: #2c4067;
-        font-size: 2em;
-        font-family: 'Roboto', Arial, sans-serif;
-        opacity: 0.5;
-        letter-spacing: 0.1em;
-        pointer-events: none;
-        user-select: none;
+      a {
+        color: white;
+        font-size: var(--ddd-font-size-m);
       }
     `];
   }
 
-  update() {
-    this.scrollToHash(location.hash);
-    window.addEventListener("hashchange", () => {
-      this.scrollToHash(location.hash);
-    }
-    );
-    this.onScroll = () => {
-      const screens =
-      Array.from(this.renderRoot.querySelectorAll("portfolio-screen"));
-      const scrollY = window.scrollY || document.documentElement.scrollTop;
-      let activeId = screens[0].id;
-      for (const screen of screens) {
-        const rect = screen.getBoundingClientRect();
-        if (rect.top <= 100 && rect.bottom > 100) {
-          activeId = screen.id;
-          break;
-        }
-      }
-      if (location.hash !== `#${activeId}`) {
-        history.replaceState(null, "", `#${activeId}`);
-      }
-    };
-    window.addEventListener("scroll", this.onScroll);
-  }
-
-  onNavClick(e, id) {
+  scrollToPage(e, index) {
     e.preventDefault();
-    const object = this.renderRoot.querySelector(`#${id}`);
-    if (object) {
-      object.scrollIntoView({ behavior: "smooth" });
-      history.pushState(null, "", `#${id}`);
-    }
+    const target = this.pages[index];
+    target.scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+    window.history.pushState({}, "", `#${target.id}`)
   }
 
-  scrollToHash(hash) {
-    if (hash) {
-      const id = hash.replace("#", "");
-      const object = this.renderRoot.querySelector(`#${id}`);
-      if (object) {
-        element.scrollIntoView({ behavior: "smooth" });
-      }
-    }
-  }
+
 
 
   // Lit render the HTML
   render() {
-    const screens = [
-      {
-        id: "screen-1",
-        label: "Home",
-        color: "var(--ddd-theme-default-blueberry, #4fc3f7)",
-        content: html`
-        <h2>Welcome</h2>
-        <p>This is your portfolio homepage. Scroll or use the sidebar to explore.</p>
-      `,
-      },
-      {
-        id: "screen-2",
-        label: "About",
-        color: "var(--ddd-theme-default-mint, #00bfae)",
-        content: html`
-        <h2>About Me</h2>
-        <p>Learn more about me and my work.</p>
-      `,
-      },
-      {
-        id: "screen-3",
-        label: "Projects",
-        color: "var(--ddd-theme-default-coral, #ff7043)",
-        content: html`
-        <h2>My Projects</h2>
-        <p>Explore my projects and contributions.</p>
-      `,
-      },
-      {
-        id: "screen-4",
-        label: "Contact",
-        color: "var(--ddd-theme-default-slate, #2c4067)",
-        content: html`
-        <h2>Contact Me</h2>
-        <p>
-          <a href="mailto:ams11649@psu.edu">ams111649@psu.edu</a>
-        </p>
-        <iframe src="https://docs.google/form/d/e/1FAIpQLSfj2v4g3x5k5f5f5f5f5f5f5f5f5f5f5f5f5f5f5/viewform?embedded=true" width="100%" height="400px" style="border:none;"></iframe>
-      `,
-      },
-      {
-        id: "screen-5",
-        label: "Blog",
-        color: "var(--ddd-theme-default-sunflower, #ffd600)",
-        content: html`
-        <h2>My Blog</h2>
-        <p>Read my latest blog posts and articles.</p>
-      `,
-      },
-    ];
-
     return html`
-      <div class="layout">
-        <div class="sidebar">
-          <nav>
-            ${screens.map(
-              (screen) => html`
-                <a 
-                href="#${screen.id}" 
-                @click="${(object) => this.onNavClick(object, screen.id)}"
-                >${screen.label}
+      <portfolio-sidebar>
+        <ul class="sidebar-links">
+          ${this.pages.map((page, index) => html`
+            <li>
+              <a href="#${page.id}" @click="${(e) => this.scrollToPage(e, index)}">
+                ${page.title}
               </a>
-              `
-            )}
-          </nav>
-          </div>
-          <main class="main-content" style="overflow-y: auto; scroll-snap-type: y mandatory;">
-            <div id="screens">
-              ${screens.map(
-                (screen) => html`
-                  <portfolio-screen
-                    screen="${screen.id}"
-                    color="${screen.color}"
-                    label="${screen.label}"
-                  >
-                    ${screen.content}
-                  </portfolio-screen>
-                `
-              )}
-            </div>
-            <scroll-button 
-              style="position:fixed; bottom:32px; right:32px; z-index:1000;">
-            </scroll-button>
-          </main>
-        </div>
+            </li>
+          `)}
+        </ul>
+      </portfolio-sidebar>
+      <div class="wrapper">
+        <slot></slot>
+      </div>
         `;
     }
 
-  /**
-   * haxProperties integration via file reference
-   */
-  static get haxProperties() {
-    return new URL(`./lib/${this.tag}.haxProperties.json`, import.meta.url)
-      .href;
+    // linkChange(e) {
+    //   let number = parseInt(e.target.getAttribute("data-index"));
+    //   if (number >= 0) {
+    //     this.pages[number].element.scrollIntoView();
+    //   }
+    // }
+    // addPage(e) {
+    //   const element = e.detail.value
+    //   const page = {
+    //     number: element.pagenumber,
+    //     title: element.title,
+    //     element: element,
+    //   }
+    //   this.pages = [...this.pages, page];
+    // }
   }
-}
 
 globalThis.customElements.define(PortfolioSidebarTheme.tag, PortfolioSidebarTheme);
