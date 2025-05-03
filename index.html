@@ -11,11 +11,28 @@
     :root, html, body {
       margin: var(--ddd-spacing-0);
       padding: var(--ddd-spacing-0);
+      --primary-bg: var(--ddd-theme-default-skyLight);
+      --secondary-bg: var(--ddd-theme-default-skyDark);
+      --accent-bg: var(--ddd-theme-default-skyDark);
+      --highlight-bg: var(--ddd-theme-default-skyLight);
   
     }
     p {
       padding-top: 10px;
       padding-left: 30px;
+    }
+
+    .section2 {
+      background: var(--primary-bg)
+    }
+    .section3 {
+      background: var(--secondary-bg)
+    }
+    .section4 {
+      background: var(--accent-bg)
+    }
+    .section5 {
+      background: var(--highlight-bg)
     }
   </style>
 </head>
@@ -23,27 +40,29 @@
 <script type="module" src="portfolio-sidebar-theme.js"></script>
 <script type="module" src="portfolio-page.js"></script>
 
+
 <body>
   <portfolio-sidebar-theme>
-    <portfolio-page title="About me" pagenumber="1" data-primary="12">
+    <portfolio-page id="screen-1" title="About Me" pagenumber="1" data-primary="12">
       <div>
         <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/356246215_101061826381080_8889062596903806468_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=a4zZ_k_hTcMQ7kNvwG0K7n5&_nc_oc=AdmmlwSUL7ygDE9KsAcwSsG8R6Kw8Z7arqAz4NRWoEhGdHQJCuDwqHVq1AwSSEq25ms&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=Py7fZJlqnNN50AzxfMvjiw&oh=00_AfEiiVwPgxX4ftxnANbaPzo8GCnJARgYbuNaSZDVDs9tCA&oe=681826E2" alt="" style="margin: 20px; width: 250px; height: 250px; object-fit: cover; float:left;">
       <p>My name is lucky</p>
       <p>esa</p>
       </div>
     </portfolio-page>
-    <portfolio-page title="Research" pagenumber="2" data-primary="10">
+    <portfolio-page id="screen-2" title="Research" pagenumber="2" data-primary="10">
       <p>My name is Lucky</p>
     </portfolio-page>
-    <portfolio-page title="Content" pagenumber="3" data-primary="8">
+    <portfolio-page id="screen-3" title="Content" style="--page-bg: var(--ddd-theme-default-alertImmediate);">
       <p>My name is Lucky</p>
     </portfolio-page>
-    <portfolio-page title="Questions" pagenumber="4" data-primary="6">
+    <portfolio-page id="screen-4" title="Questions" pagenumber="4" data-primary="6">
       <p>My name is Lucky</p>
     </portfolio-page>
-    <portfolio-page title="Contact" pagenumber="5" data-primary="4">
+    <portfolio-page id="screen-5" title="Contact" pagenumber="5" data-primary="4">
       <p>My name is Lucky</p>
     </portfolio-page>
   </portfolio-sidebar-theme>
+  <scroll-button style="position: fixed; bottom: 20px; right: 20px; z-index: 1001;"></scroll-button>
 </body>
 </html>

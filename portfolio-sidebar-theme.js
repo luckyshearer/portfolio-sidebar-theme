@@ -4,8 +4,7 @@
  */
 import { LitElement, html, css } from "lit";
 import { DDDSuper } from "@haxtheweb/d-d-d/d-d-d.js";
-// import { I18NMixin } from "@haxtheweb/i18n-manager/lib/I18NMixin.js";
-import "./portfolio-sidebar.js";
+import "./portfolio-page.js";
 
 
 export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
@@ -16,16 +15,13 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
 
   constructor() {
     super();
-    this.pages = [];
-    this.observer = new MutationObserver(this.handleMutations.bind(this));
-    
-    this.registerLocalization({
-      context: this,
-      localesPath:
-        new URL("./locales/portfolio-sidebar-theme.ar.json", import.meta.url).href +
-        "/../",
-      locales: ["ar", "es", "hi", "zh"],
-    });
+    this.pages = [
+      {id: 'screen-1', title: 'About Me'},
+      {id: 'screen-2', title: 'Research'},
+      {id: 'screen-3', title: 'Content'},
+      {id: 'screen-4', title: 'Questions'},
+      {id: 'screen-5', title: 'Contact'}
+    ];
   }
 
   firstUpdated() {
@@ -35,6 +31,15 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
       childList: true,
       subtree: true,
     });
+
+    if (window.location.hash){
+      const target = this.querySelector(window.location.hash);
+      if(target){
+        requestAnimationFrame(() => {
+          target.scrollIntoView({behavior:"smooth", block:"start"});
+        });
+      }
+    }
   }
 
   handleMutations(mutations) { 
@@ -44,10 +49,18 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
   }
 
   setupScrollBehavior() {
+    const dddColors = [
+      "var(--ddd-theme-default)", 
+      "var(--ddd-theme-primary)", 
+      "var(--ddd-theme-secondary)", 
+      "var(--ddd-theme-accent)", 
+      "var(--ddd-theme-complement)"
+    ];
     this.pages.forEach((page, index) => {
-      page.id = `screen-${index+1}`;
+      page.id = `screen-${index + 1}`;
       page.style.height = "100vh";
       page.style.scrollSnapAlign = "start";
+      page.style.backgroundColor = dddColors[index % dddColors.length]; 
       });
     }
 
@@ -67,39 +80,56 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
       :host {
         display: block;
         height: 100vh;
-        background-color: var(--ddd-theme-accent);
-        font-family: var(--ddd-font-navigation);
-        overflow-y:scroll;
+        overflow-y: scroll;
         scroll-snap-type: y mandatory;
+      }
 
-      }
-      portfolio-sidebar {
-        width: 240px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 100vh;
-        z-index: 1000;
-      }
+      
       .wrapper {
-        margin-left: 240px;
-        min-height: 100vh;
+        margin-left: 30px;
+        padding: 2rem;
+        margin-right: 0px;
       }
+
       a {
-        color: white;
-        font-size: var(--ddd-font-size-m);
+        display: block;
+        margin: 0.5rem 0;
+        color: var(--ddd-theme-default-pughBlue);
+        text-decoration: none;
+        font-weight: bold;
+        cursor: pointer;
+        font-size: 1.1rem;
+        transition: color 0.3s ease;
+      }
+
+      a:hover, a:focus {
+        outline: 2px solid blue;
+        color: var(--ddd-theme-default-skyBlue);
+      }
+        
+      .sidebar {
+        width: 100px;
+        height: 100vh;
+        background-color: var(--ddd-theme-default-alertImmediate);
+        padding: 1rem;
+        position: fixed;
+        left: 0;
+        top: 0;
+        color: black;
+        display: flex;
+        flex-direction: column;
+        padding-top: 7rem;
+        gap: 3rem;
       }
     `];
   }
 
   scrollToPage(e, index) {
     e.preventDefault();
-    const target = this.pages[index];
-    target.scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-    window.history.pushState({}, "", `#${target.id}`)
+    const section = document.getElementById(this.pages[index].id);
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
   }
 
 
@@ -108,38 +138,26 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
   // Lit render the HTML
   render() {
     return html`
-      <portfolio-sidebar>
-        <ul class="sidebar-links">
-          ${this.pages.map((page, index) => html`
-            <li>
-              <a href="#${page.id}" @click="${(e) => this.scrollToPage(e, index)}">
-                ${page.title}
-              </a>
-            </li>
-          `)}
-        </ul>
-      </portfolio-sidebar>
-      <div class="wrapper">
-        <slot></slot>
-      </div>
+      <div class="sidebar">
+      ${this.pages.map((page, index) => html`
+        <a 
+          href = "#${page.id}"
+          @click="${(e) => this.scrollToPage(e, index)}"
+          @keydown="${(e) => {
+            if(e.key === 'Enter') this.scrollToPage(e, index);
+          }}"
+          tabindex="0"
+        >
+          ${page.title}
+        </a>
+      `)}
+      </div> 
+      
+        <div class="wrapper">
+          <slot></slot>
+        </div>
         `;
     }
-
-    // linkChange(e) {
-    //   let number = parseInt(e.target.getAttribute("data-index"));
-    //   if (number >= 0) {
-    //     this.pages[number].element.scrollIntoView();
-    //   }
-    // }
-    // addPage(e) {
-    //   const element = e.detail.value
-    //   const page = {
-    //     number: element.pagenumber,
-    //     title: element.title,
-    //     element: element,
-    //   }
-    //   this.pages = [...this.pages, page];
-    // }
   }
 
 globalThis.customElements.define(PortfolioSidebarTheme.tag, PortfolioSidebarTheme);

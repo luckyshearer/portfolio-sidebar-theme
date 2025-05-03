@@ -65,6 +65,7 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
     render() {
         return html`
             <div class="wrapper">
+                
                 <slot></slot>
             </div>
         `;
