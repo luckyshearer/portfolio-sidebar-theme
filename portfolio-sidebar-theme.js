@@ -17,8 +17,8 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
     super();
     this.pages = [
       {id: 'screen-1', title: 'About Me'},
-      {id: 'screen-2', title: 'Research'},
-      {id: 'screen-3', title: 'Content'},
+      {id: 'screen-2', title: 'Experience'},
+      {id: 'screen-3', title: 'Skills'},
       {id: 'screen-4', title: 'Questions'},
       {id: 'screen-5', title: 'Contact'}
     ];
@@ -81,6 +81,7 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
         height: 100vh;
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
+        scroll-behavior: smooth;
         overflow: hidden;
         margin: 0;
         padding: 0;
@@ -88,6 +89,8 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
 
       
       .wrapper {
+        /* display: flex; */
+        /* flex-direction: column; */
         top: 0;
         width: 100%;
         height: 100%;
@@ -124,6 +127,26 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
         padding-top: 7rem;
         gap: 3rem;
       }
+
+      @media (min-width: 1024px) {
+        :host {
+          min-height: 100vh;
+          padding: 2rem;
+        }
+      }
+
+      @media (max-width: 768px) {
+        :host {
+          padding: 1rem; 
+        }
+      }
+
+      @media (max-width: 480px) {
+        :host {
+          padding: 0.5rem;
+        }
+      }
+
     `];
   }
 

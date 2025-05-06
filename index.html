@@ -64,7 +64,7 @@
 
     .bio-text {
       margin-top: -2vw;
-      margin-left: -1vw;
+      margin-left: -100px;
       max-width: 80%;
       font-size: 1.2em;
       text-align: center;
@@ -163,7 +163,7 @@
 
 <script type="module" src="portfolio-sidebar-theme.js"></script>
 <script type="module" src="portfolio-page.js"></script>
-
+<script type="module" src="https://unpkg.com/@haxtheweb/simple-cta/simple-cta.js"></script>
 
 <body>
   <portfolio-sidebar-theme>
@@ -248,12 +248,14 @@
 
     <portfolio-page id="screen-5" title="Contact" style="--page-bg: var(--ddd-theme-default-athertonViolet);">
       <h1>Let's Connect!!</h1>
+      <simple-cta label="Send me a message!" buttonColor="#ffffff" textColor="#000000">
       <div class="contact-info">
       <p> 📧<a href="mailto:ams11649@psu.edu">ams11649@psu.edu</a></p>
       <p> 📍King of Prussia, PA</p>
       <p> 🔗<a  href="https://www.linkedin.com/in/alexandra-shearer-a215b628a" target="_blank">LinkedIn</a></p>
       <p>📱(484) 688 - 7251</p>
       </div>
+    </simple-cta>
     </portfolio-page>
   </portfolio-sidebar-theme>
   <scroll-button style="position: fixed; bottom: 20px; right: 20px; z-index: 1001;"></scroll-button>

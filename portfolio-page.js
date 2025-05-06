@@ -32,6 +32,8 @@ export class PortfolioPage extends DDDSuper(LitElement) {
                     padding: 0;
                     margin: 0;
                     box-sizing: border-box;
+                    scroll-snap-align: start;
+                    overflow: auto;
                 }
 
                 h1
