@@ -57,6 +57,25 @@ export class PortfolioPage extends DDDSuper(LitElement) {
                     display: flex;
                     flex-direction: column;
                 }
+
+                @media (min-width: 1024px) {
+                :host {
+                    min-height: 100vh;
+                    padding: 2rem;
+                    }
+                }
+
+                @media (max-width: 768px) {
+                :host {
+                    padding: 1rem;
+                    }
+                }
+
+                @media (max-width: 480px) {
+                :host {
+                    padding: 0.5rem;
+                    }
+                }
             `];
         }
     
