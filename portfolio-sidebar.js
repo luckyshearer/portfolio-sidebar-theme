@@ -16,6 +16,9 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
             super.styles,
             css`
                 :host {
+                    display: block;
+                    box-sizing: border-box;
+                    color: white;
                     width: 240px;
                     height: 100vh;
                     position: fixed;
@@ -25,6 +28,29 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
                     background: #f8bbd0;
                     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.07);
                 }
+
+                nav {
+      position: sticky;
+      top: 0;
+      padding: 1rem;
+      height: 100%;
+      min-height: 100%;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    li {
+      margin-bottom: 1rem;
+    }
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
 
                 .wrapper {
                     width: 100%;
