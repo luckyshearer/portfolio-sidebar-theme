@@ -59,6 +59,39 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
                     background: #f06292;
                     border-left: 4px solid #fff;
                 }
+
+                @media (min-width: 1024px) {
+      :host {
+        width: 250px;
+        height: auto;
+      }
+
+      nav {
+        height: 100vh;
+      }
+    }
+
+    @media (max-width: 1023px) {
+      :host {
+        width: 100%;
+        height: auto;
+      }
+
+      nav {
+        position: relative;
+        height: auto;
+      }
+
+      ul {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+
+      li {
+        margin: 0.5rem;
+      }
+    }
         `];
     }
 
