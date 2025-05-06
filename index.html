@@ -17,10 +17,133 @@
       --highlight-bg: var(--ddd-theme-default-skyLight);
   
     }
+
     p {
       padding-top: 10px;
       padding-left: 30px;
     }
+
+    h1{
+      color: var(--ddd-theme-default-wonderPurple);
+      text-align: center;
+      padding-left: 200px;
+      margin-top: 200px;
+      
+    }
+
+    .about-wrapper {
+      display: flex;
+      flex-direction: column;
+      margin-top: -70px;
+    }
+
+    .main-content {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 40px;
+    }
+
+    .profile img {
+      width: 30vw;
+      max-width: 300px;
+      height: auto;
+      object-fit: cover;
+      border-radius: 20px;
+      padding-left: 70px;
+      padding-top: 30px;
+      
+    }
+
+    .bottom p {
+      padding-left: 10;
+      padding-top: 10px;
+      margin-left: 100px;
+      
+    }
+
+    .bio-text {
+      margin-top: -2vw;
+      margin-left: -1vw;
+      max-width: 80%;
+      font-size: 1.2em;
+      text-align: center;
+    }
+
+    .bottom {
+      margin-top: 0px;
+      font-size: 16px;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    .experience {
+      margin-bottom: 2rem;
+      margin-left: 80px;
+      padding-right: 2rem;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    ul li{
+      margin-bottom: 0.5rem;
+      margin-left: 200px;
+      margin-right: -150px;
+      font-size: 2rem;
+    }
+
+    .job-header{
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .job-header h3{
+      font-size: 1.5rem;
+      margin-left: 50px;
+      margin-top: -15px;
+    }
+    
+    .job-header d{
+      font-size: 1.2rem;
+      margin-left: 50px;
+      margin-top: -25px;
+    }
+
+    .job-header p{
+      margin-left: 40px;
+      margin-top: -15px;
+      margin-bottom: 20px;
+      margin-right: -150px;
+    }
+
+    .question-wrapper p {
+      font-size: 1.5rem;
+      color: white;
+      text-align: center;
+      margin-top: 60px;
+      margin-bottom: 80px;
+      margin-left: 100px;
+      margin-right: -100px;
+      
+    }
+
+    .contact-info {
+      margin-top: 10px;
+      margin-left: 100px;
+      margin-right: -150px;
+      font-size: 1.5rem;
+      
+    }
+  
 
     .section2 {
       background: var(--primary-bg)
@@ -34,6 +157,7 @@
     .section5 {
       background: var(--highlight-bg)
     }
+
   </style>
 </head>
 
@@ -43,24 +167,93 @@
 
 <body>
   <portfolio-sidebar-theme>
-    <portfolio-page id="screen-1" title="About Me" pagenumber="1" data-primary="12">
-      <div>
-        <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/356246215_101061826381080_8889062596903806468_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=a4zZ_k_hTcMQ7kNvwG0K7n5&_nc_oc=AdmmlwSUL7ygDE9KsAcwSsG8R6Kw8Z7arqAz4NRWoEhGdHQJCuDwqHVq1AwSSEq25ms&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=Py7fZJlqnNN50AzxfMvjiw&oh=00_AfEiiVwPgxX4ftxnANbaPzo8GCnJARgYbuNaSZDVDs9tCA&oe=681826E2" alt="" style="margin: 20px; width: 250px; height: 250px; object-fit: cover; float:left;">
-      <p>My name is lucky</p>
-      <p>esa</p>
+    <portfolio-page id="screen-1" title="About Me" style="--page-background-color: var(--ddd-theme-default-alertImmediate);">
+      <div class ="about-wrapper">
+        <h1>Meet Alexandra!</h1>
+        <div class="main-content">
+          <div class="profile">
+            <img src="https://scontent-iad3-2.xx.fbcdn.net/v/t39.30808-6/356246215_101061826381080_8889062596903806468_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=6ee11a&_nc_ohc=a4zZ_k_hTcMQ7kNvwG0K7n5&_nc_oc=AdmmlwSUL7ygDE9KsAcwSsG8R6Kw8Z7arqAz4NRWoEhGdHQJCuDwqHVq1AwSSEq25ms&_nc_zt=23&_nc_ht=scontent-iad3-2.xx&_nc_gid=Py7fZJlqnNN50AzxfMvjiw&oh=00_AfEiiVwPgxX4ftxnANbaPzo8GCnJARgYbuNaSZDVDs9tCA&oe=681826E2" alt="" style="margin: 40px; margin-top: -10px; width: 250px; height: 250px; object-fit: cover; float: left;"/>
+          </div>
+          <div class="bio-text">
+            <p>Hi, I'm Alexandra "Lucky" Shearer! I'm currently a student at Penn State University, pursuing a B.S. in Cybersecurity Analytics and Operations. </p>
+          </div>
+        </div>
+        <div class="bottom">
+          <p>I have a passion for digital security, data integrity, and learning how to defend networks in an ever-changing tech world. Outside of tech, I am all about community, connection, and creativity -- from my involvement with THON to years of experience in retails. Welcome to my portfolio </p>
+        </div>
+        </div>
+      </portfolio-page>
+
+    <portfolio-page id="screen-2" title="Experience" style="--page-bg: var(--ddd-theme-default-discoveryCoral);">
+      <div class="about-wrapper">
+        <h1>What I've Done</h1>
+        <div class="experience">
+          <div class="job-header">
+            <h3>Lilly Pulitzer, Associate</h3>
+            <d>June 2019 - August 2024</d>   
+            <p>Worked in a fast paced distribution environment, developing skills in order fulfillment, communication, and team operations.</p>   
+          </div>
+        </div>
+        <div class="experience">
+          <div class="job-header">
+          <h3>THON Committee Member</h3>
+          <d>Oct 2023 - Present</d>
+          <p>Supported dancers through the 46-hour THON event, providing logistical and emotional assistance as part of the Dancer Relations Committee.</p>
+          </div>
+        </div>
+        <div class="experience">
+          <div class="job-header">
+            <h3>Epsilon Sigma Alpha Member</h3>
+            <d>Oct 2023 - Present</d>
+            <p>Active member in a student run service organization supporting THON and St. Jude's through year-round fundraising and community bonding.</p>
+          </div>
+        </div>
       </div>
     </portfolio-page>
-    <portfolio-page id="screen-2" title="Research" pagenumber="2" data-primary="10">
-      <p>My name is Lucky</p>
+
+    <portfolio-page id="screen-3" title="Skills" style="--page-bg: var(--ddd-theme-default-alertImmediate);">
+      <h1>What I Know</h1>
+      <ul>
+        <li>
+          <strong>Programming Languages:</strong>
+          Python, Java, HTML, CSS
+        </li>
+        <li>
+          <strong>Tools:</strong>
+          SQL Workbench, Microsoft Excel
+        </li>
+        <li>
+          <strong>Systems:</strong>
+          Linux
+        </li>
+        <li>
+          <strong>Fundamentals:</strong>
+          Networking, Data Organization, Cyber Defense, and Security & Risk Analysis
+        </li>
+      </ul>
     </portfolio-page>
-    <portfolio-page id="screen-3" title="Content" style="--page-bg: var(--ddd-theme-default-alertImmediate);">
-      <p>My name is Lucky</p>
+
+    <portfolio-page id="screen-4" title="Questions" style="--page-bg: var(--ddd-theme-default-original87Pink);">
+      <div class="about-wrapper">
+        <div class="question-wrapper">
+          <h1>Ask Me Anything</h1>
+          <p>Curious about my journey? </p>
+          <p> Want to know more about cybersecurity, Penn State life, or my favorite part of THON?</p>
+          <p>I am Always open to connecting and sharing more about my path.</p>
+          <p>Drop your questions below or reach out through my contact section!</p>
+          <h1>❔ ❔ ❔ ❔ ❔ ❔ ❔</h1>
+        </div>
+      </div>
     </portfolio-page>
-    <portfolio-page id="screen-4" title="Questions" pagenumber="4" data-primary="6">
-      <p>My name is Lucky</p>
-    </portfolio-page>
-    <portfolio-page id="screen-5" title="Contact" pagenumber="5" data-primary="4">
-      <p>My name is Lucky</p>
+
+    <portfolio-page id="screen-5" title="Contact" style="--page-bg: var(--ddd-theme-default-athertonViolet);">
+      <h1>Let's Connect!!</h1>
+      <div class="contact-info">
+      <p> 📧<a href="mailto:ams11649@psu.edu">ams11649@psu.edu</a></p>
+      <p> 📍King of Prussia, PA</p>
+      <p> 🔗<a  href="https://www.linkedin.com/in/alexandra-shearer-a215b628a" target="_blank">LinkedIn</a></p>
+      <p>📱(484) 688 - 7251</p>
+      </div>
     </portfolio-page>
   </portfolio-sidebar-theme>
   <scroll-button style="position: fixed; bottom: 20px; right: 20px; z-index: 1001;"></scroll-button>

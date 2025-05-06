@@ -60,7 +60,6 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
       page.id = `screen-${index + 1}`;
       page.style.height = "100vh";
       page.style.scrollSnapAlign = "start";
-      page.style.backgroundColor = dddColors[index % dddColors.length]; 
       });
     }
 
@@ -82,13 +81,17 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
         height: 100vh;
         overflow-y: scroll;
         scroll-snap-type: y mandatory;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
       }
 
       
       .wrapper {
-        margin-left: 30px;
-        padding: 2rem;
-        margin-right: 0px;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
       }
 
       a {

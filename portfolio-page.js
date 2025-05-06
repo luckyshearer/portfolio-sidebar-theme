@@ -25,24 +25,35 @@ export class PortfolioPage extends DDDSuper(LitElement) {
             super.styles,
             css`
                 :host {
-                    background-color: var(--page-bg ,var(--ddd-theme-default-pink));
+                    background-color: var(--page-bg, white);
                     height: 100vh;
+                    width: 100vw;
                     display: block;
-                    padding: 2rem;
+                    padding: 0;
+                    margin: 0;
+                    box-sizing: border-box;
                 }
 
                 h1
                 {
-                    text-align: right;
+                    text-align: center;
                     font-family: var(--ddd-font-navigation);
-                    color: rgb(255, 255, 255, 255);
+                    color: rgb(255, 255, 255);
                     background-image: linear-gradient(to right, rgba(255, 192, 203, 0), rgba(255, 182, 193, 0.4), #ff69b4);
-                    padding-right: 50px;
                     border-bottom: 2px solid var(--ddd-theme-primary);
+                    margin: 0 auto;
+                    padding: 1rem 0;
                 }
 
                 .wrapper {
-                    padding: 40px;
+                    top: 0;
+                    left: 100px;
+                    padding: 2rem;
+                    width: calc(100% - 100px);
+                    height: 100vh;
+                    box-sizing: border-box;
+                    display: flex;
+                    flex-direction: column;
                 }
             `];
         }
@@ -61,7 +72,9 @@ export class PortfolioPage extends DDDSuper(LitElement) {
     firstUpdated(changedProperties) {
         if (super.firstUpdated) {
             super.firstUpdated(changedProperties);
+            
         }
+        page.style.backgroundColor = dddColors[index % dddColors.length]; 
 
         this.dispatchEvent(new CustomEvent('page-added', {
             bubbles: true,
