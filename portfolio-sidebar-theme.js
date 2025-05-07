@@ -133,11 +133,19 @@ export class PortfolioSidebarTheme extends DDDSuper(LitElement) {
           min-height: 100vh;
           padding: 2rem;
         }
+
+        img{
+          max-width: 800px;
+        }
       }
 
       @media (max-width: 768px) {
         :host {
           padding: 1rem; 
+        }
+
+        img{
+          max-width: 600px;
         }
       }
 

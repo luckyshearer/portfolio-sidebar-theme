@@ -101,6 +101,7 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
       :host {
         width: 100%;
         height: auto;
+        
       }
 
       nav {
@@ -120,6 +121,8 @@ export class PortfolioSidebar extends I18NMixin(DDDSuper(LitElement)) {
     }
         `];
     }
+
+    
 
     render() {
         return html`
